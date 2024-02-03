@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>
+    <title>Valentine's Day Proposal</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #f8d7da;
+        }
+
+        #question {
+            font-size: 20px;
+        }
+
+        #yes,
+        #no {
+            font-size: 16px;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        #yes {
+            background-color: green;
+        }
+
+        #no {
+            background-color: red;
+            position: absolute;
+            transition: left 0.5s ease, top 0.5s ease;
+        }
+
+        #kiss-gif {
+            display: none;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 600px) {
+            #question {
+                font-size: 16px;
+            }
+
+            #yes,
+            #no {
+                font-size: 14px;
+                padding: 5px 10px;
+            }
+
+            #no {
+                position: static;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="mt-4">Polly X Carlos Valentijnsdate</h1>
+    <div class="ml-5" id="question">Wil je mijn Valentijnsdate zijn?</div>
+    <button class="mr-5 mt-5" id="yes" onclick="showKissGif()">JA</button>
+    <button class="ml-5 mt-5" id="no" onclick="askAgain()">NEE</button>
+
+    <div id="kiss-gif">
+        <img src="https://media1.tenor.com/m/xF3_1NjL5ggAAAAC/snoopy-love.gif" alt="Kissing Gif">
+    </div>
+    <div id="sad-gif" style="display: none;">
+        <img id="sad-gif-img" src="" alt="Sad Gif">
+    </div>
+    <script>
+        let questionCount = 1;
+        let hasShownSadGif = false;
+        const phrases = [
+            "Ben je Zeker?",
+            "Teco Komt mee?",
+            "Free Pão de Deus?",
+            "Please?",
+            ">:(",
+        ];
+
+        function askAgain() {
+            const question = document.getElementById('question');
+            const yesButton = document.getElementById('yes');
+            const noButton = document.getElementById('no');
+
+            if (questionCount <= phrases.length) {
+                question.innerText = phrases[questionCount - 1];
+                questionCount++;
+                if (!hasShownSadGif) {
+                    document.getElementById('sad-gif').style.display = 'block';
+                    document.getElementById('sad-gif-img').src = "https://media1.tenor.com/m/m1TvHNAFXYcAAAAC/byuntear-snoopy.gif";
+                    hasShownSadGif = true; // Set the flag to true after showing the gif
+                }
+            } else {
+                question.innerText = "Ben je zeker?"; // Change the text after 10 phrases
+                yesButton.style.fontSize = '28px';
+
+                document.getElementById('no').addEventListener('click', function () {
+                    this.style.left = Math.random() * window.innerWidth + 'px';
+                    this.style.top = Math.random() * window.innerHeight + 'px';
+                });
+            }
+        }
+
+        function showKissGif() {
+            const question = document.getElementById('question');
+            const yesButton = document.getElementById('yes');
+            const noButton = document.getElementById('no');
+            const sadGif = document.getElementById('sad-gif'); // Get the sad gif element
+
+            question.style.display = 'none';
+            yesButton.style.display = 'none';
+            noButton.style.display = 'none';
+            sadGif.style.display = 'none'; // Hide the sad gif
+            document.getElementById('kiss-gif').style.display = 'block';
+        }
+
+
+    </script>
+</body>
+
+</html>
